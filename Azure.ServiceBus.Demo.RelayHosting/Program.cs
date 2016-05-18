@@ -1,6 +1,4 @@
-﻿using Azure.ServiceBus.Demo.Contracts;
-using Azure.ServiceBus.Demo.Services;
-using Microsoft.ServiceBus;
+﻿using Microsoft.ServiceBus;
 using System;
 using System.Diagnostics;
 using System.ServiceModel;
@@ -13,39 +11,13 @@ namespace Azure.ServiceBus.Demo.RelayHosting
     {
         static void Main(string[] args)
         {
-            ServiceHost hostTestManager = null;
             ServiceHost hostCalculatorManager = null;
 
             try
             {
-                hostTestManager = new ServiceHost(typeof(RelayTestManager));
                 hostCalculatorManager = new ServiceHost(typeof(RelayCalculatorManager));
 
                 ServiceBusEnvironment.SystemConnectivity.Mode = ConnectivityMode.AutoDetect;
-
-                #region Endpoint configuration - TestManager
-
-                // localhost endpoint
-                hostTestManager.AddServiceEndpoint(
-                    typeof(IRelayTestService),
-                    new NetTcpBinding(),
-                    "net.tcp://localhost:9876/RelayTestService"
-                    );
-
-                // azure endpoint
-                hostTestManager.AddServiceEndpoint(
-                    typeof(IRelayTestService),
-                    new NetTcpRelayBinding(),
-                    ServiceBusEnvironment
-                        .CreateServiceUri("sb", Common.AccessData.ServiceBusNamespace, "RelayTestService"))
-                        .Behaviors.Add(new TransportClientEndpointBehavior
-                        {
-                            TokenProvider = TokenProvider.CreateSharedAccessSignatureTokenProvider(
-                                Common.AccessData.SasTestKeyName,
-                                Common.AccessData.SasTestKeyValue)
-                        });
-
-                #endregion
 
                 #region Endpoint configuration - CalculatorManager
 
@@ -67,24 +39,18 @@ namespace Azure.ServiceBus.Demo.RelayHosting
                 Console.WriteLine();
                 Console.WriteLine("......................................................");
 
-                StartHostingService(hostTestManager);
                 StartHostingService(hostCalculatorManager);
 
                 Console.WriteLine();
                 Console.WriteLine("2) press <enter> to close the app...");
                 Console.ReadKey();
 
-                hostTestManager.Close();
                 hostCalculatorManager.Close();
             }
             catch (Exception ex)
             {
                 Debugger.Break();
 
-                if (hostTestManager != null && hostTestManager.State == CommunicationState.Faulted)
-                {
-                    hostTestManager.Abort();
-                }
                 if (hostCalculatorManager != null && hostCalculatorManager.State == CommunicationState.Faulted)
                 {
                     hostCalculatorManager.Abort();

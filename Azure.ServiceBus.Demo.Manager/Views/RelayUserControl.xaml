@@ -18,12 +18,32 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
 
-            <Label Content="Here you can test hosting WCF service in the cloud (Azure ServiceBus)"
+            <Label Content="Choose an math operation and invoke the service..."
                    Margin="0,0,0,0"/>
+            
+            <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center">
+                <RadioButton Name="RbAdd" GroupName="math">add</RadioButton>
+                <RadioButton Name="RbSubtract" GroupName="math" Margin="20,0,0,0">subtract</RadioButton>
+                <RadioButton Name="RbDivide" GroupName="math"
+                             Margin="20,0,0,0">divide</RadioButton>
+                <RadioButton Name="RbMultiply" GroupName="math"
+                             Margin="20,0,0,0">multiply</RadioButton>
+            </StackPanel>
+            
             <Label Grid.Row="2"
-                   Content="Put your name here:" />
-            <TextBox Grid.Row="3"
-                     Name="TxtName" />
+                   Content="Set the operands:" />
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <TextBox Grid.Column="0"
+                         Name="TxtFirstOperand" />
+                <TextBox Grid.Column="1"
+                         Name="TxtSecondOperand" />
+
+            </Grid>
             <Button Grid.Row="4"
                     Content="Invoke service"
                     Click="BtnInvokeServiceClick"
