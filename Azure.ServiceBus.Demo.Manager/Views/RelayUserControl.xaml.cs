@@ -17,6 +17,8 @@ namespace Azure.ServiceBus.Demo.Manager.Views
         public RelayUserControl()
         {
             InitializeComponent();
+
+            // important!!!
             this._syncContext = SynchronizationContext.Current;
         }
 
@@ -27,6 +29,8 @@ namespace Azure.ServiceBus.Demo.Manager.Views
                 this.LblReturnValue.Content = string.Empty;
                 var input = this.TxtName.Text;
 
+                // allways do loong running tasks in "background"
+                // and do not couple ui to the task
                 Task.Run(() =>
                 {
                     var factory = new ChannelFactory<IRelayTestService>(
@@ -48,6 +52,7 @@ namespace Azure.ServiceBus.Demo.Manager.Views
 
                     factory.Close();
 
+                    // marshalling background task to the ui thread
                     this._syncContext.Send(args =>
                     {
                         this.LblReturnValue.Content = result;
