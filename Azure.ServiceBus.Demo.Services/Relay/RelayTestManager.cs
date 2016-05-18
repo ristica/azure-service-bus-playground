@@ -4,8 +4,8 @@ using System.ServiceModel;
 
 namespace Azure.ServiceBus.Demo.Services
 {
-    [ServiceBehavior(Name = "RelayTestServiceManager", Namespace = "http://servicebus.demo/relay")]
-    public class RelayTestServiceManager : IRelayTestService
+    [ServiceBehavior(Name = "RelayTestManager", Namespace = "http://servicebus.demo/relay")]
+    public class RelayTestManager : IRelayTestService
     {
         public string SayHello(string sender)
         {

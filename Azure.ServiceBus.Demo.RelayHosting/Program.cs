@@ -4,6 +4,8 @@ using Microsoft.ServiceBus;
 using System;
 using System.Diagnostics;
 using System.ServiceModel;
+using Azure.ServiceBus.Demo.Contracts.Relay;
+using Azure.ServiceBus.Demo.Services.Relay;
 
 namespace Azure.ServiceBus.Demo.RelayHosting
 {
@@ -11,24 +13,27 @@ namespace Azure.ServiceBus.Demo.RelayHosting
     {
         static void Main(string[] args)
         {
-            ServiceHost host = null;
+            ServiceHost hostTestManager = null;
+            ServiceHost hostCalculatorManager = null;
 
             try
             {
-                host = new ServiceHost(typeof(RelayTestServiceManager));
+                hostTestManager = new ServiceHost(typeof(RelayTestManager));
+                hostCalculatorManager = new ServiceHost(typeof(RelayCalculatorManager));
+
                 ServiceBusEnvironment.SystemConnectivity.Mode = ConnectivityMode.AutoDetect;
 
-                #region Endpoint configuration
+                #region Endpoint configuration - TestManager
 
                 // localhost endpoint
-                host.AddServiceEndpoint(
+                hostTestManager.AddServiceEndpoint(
                     typeof(IRelayTestService),
                     new NetTcpBinding(),
                     "net.tcp://localhost:9876/RelayTestService"
                     );
 
                 // azure endpoint
-                host.AddServiceEndpoint(
+                hostTestManager.AddServiceEndpoint(
                     typeof(IRelayTestService),
                     new NetTcpRelayBinding(),
                     ServiceBusEnvironment
@@ -42,21 +47,47 @@ namespace Azure.ServiceBus.Demo.RelayHosting
 
                 #endregion
 
-                StartHostingService(host);
+                #region Endpoint configuration - CalculatorManager
+
+                hostCalculatorManager.AddServiceEndpoint(
+                    typeof(IRelayCalculatorService),
+                    new NetTcpRelayBinding(),
+                    ServiceBusEnvironment
+                        .CreateServiceUri("sb", Common.AccessData.ServiceBusNamespace, "RelayCalculatorService"))
+                        .Behaviors.Add(new TransportClientEndpointBehavior
+                        {
+                            TokenProvider = TokenProvider.CreateSharedAccessSignatureTokenProvider(
+                                Common.AccessData.SasTestKeyName,
+                                Common.AccessData.SasTestKeyValue)
+                        });
+
+                #endregion
+
+                Console.WriteLine("1) Start hosting the service(s)");
+                Console.WriteLine();
+                Console.WriteLine("......................................................");
+
+                StartHostingService(hostTestManager);
+                StartHostingService(hostCalculatorManager);
 
                 Console.WriteLine();
                 Console.WriteLine("2) press <enter> to close the app...");
                 Console.ReadKey();
 
-                host.Close();
+                hostTestManager.Close();
+                hostCalculatorManager.Close();
             }
             catch (Exception ex)
             {
                 Debugger.Break();
 
-                if (host != null && host.State == CommunicationState.Faulted)
+                if (hostTestManager != null && hostTestManager.State == CommunicationState.Faulted)
                 {
-                    host.Abort();
+                    hostTestManager.Abort();
+                }
+                if (hostCalculatorManager != null && hostCalculatorManager.State == CommunicationState.Faulted)
+                {
+                    hostCalculatorManager.Abort();
                 }
 
                 throw;
@@ -64,13 +95,8 @@ namespace Azure.ServiceBus.Demo.RelayHosting
         }
         private static void StartHostingService(ServiceHost host)
         {
-            Console.WriteLine();
-            Console.WriteLine("1) Start hosting the service(s)");
-            Console.WriteLine();
-
             host.Open();
 
-            Console.WriteLine("......................................................");
             foreach (var endpoint in host.Description.Endpoints)
             {
                 Console.WriteLine();

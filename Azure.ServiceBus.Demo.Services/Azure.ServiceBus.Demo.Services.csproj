@@ -43,13 +43,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RelayTestServiceManager.cs" />
+    <Compile Include="Relay\RelayCalculatorManager.cs" />
+    <Compile Include="Relay\RelayTestManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Azure.ServiceBus.Demo.Contracts\Azure.ServiceBus.Demo.Contracts.csproj">
       <Project>{cca58424-88ef-4b52-bad9-eea5c924eaf7}</Project>
       <Name>Azure.ServiceBus.Demo.Contracts</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Queue\" />
+    <Folder Include="Topic\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
