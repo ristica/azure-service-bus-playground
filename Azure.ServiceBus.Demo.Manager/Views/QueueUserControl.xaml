@@ -49,7 +49,8 @@
                       FontSize="16"
                       Margin="5,0,5,5"
                       Height="35"
-                      VerticalAlignment="Bottom" />
+                      VerticalAlignment="Bottom"
+                      SelectionChanged="CbQueuesSelectionChanged" />
             <TextBox Grid.Row="2"
                      Grid.Column="2"
                      Name="TxtQueueName"
@@ -96,7 +97,7 @@
                    Padding="5,5,5,2"
                    VerticalContentAlignment="Bottom" />
 
-            <StackPanel Grid.Row="6">
+            <StackPanel Grid.Row="6" >
                 <TextBox Name="TxtMessage"
                          FontSize="16"
                          Margin="5,0,5,5"
@@ -115,7 +116,15 @@
                      Name="LbMessages"
                      FontSize="16"
                      Margin="5,0"
-                     BorderThickness="1" />            
+                     BorderThickness="1" />
+
+            <Label Grid.Row="7"
+                   Grid.ColumnSpan="3"
+                   Name="LblMessage"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontSize="18"
+                   Foreground="LightBlue" />
         </Grid>
             
     </Grid>
