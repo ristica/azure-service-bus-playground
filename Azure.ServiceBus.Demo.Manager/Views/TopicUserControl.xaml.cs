@@ -73,8 +73,19 @@ namespace Azure.ServiceBus.Demo.Manager.Views
 
             var m = new BrokeredMessage(message);
 
+            int input;
+            if (int.TryParse(message, out input))
+            {
+                
+            }
+            else
+            {
+                MessageBox.Show("Only 'integer' as message allowed.");
+                return;
+            }
+
             // app specific property to filter subscription on
-            m.Properties["Input"] = Convert.ToInt32(message);
+            m.Properties["Input"] = input;
 
             client.Send(m);
 

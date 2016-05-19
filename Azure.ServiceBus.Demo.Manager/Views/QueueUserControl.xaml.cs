@@ -1,5 +1,4 @@
-﻿using Microsoft.Azure;
-using Microsoft.ServiceBus;
+﻿using Microsoft.ServiceBus;
 using Microsoft.ServiceBus.Messaging;
 using System;
 using System.Collections.ObjectModel;
