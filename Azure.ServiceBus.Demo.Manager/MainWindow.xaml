@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Azure.ServiceBus.Demo.Manager"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-        Title="Azure ServiceBus Demo" Height="400" Width="700">
+        Title="Azure ServiceBus Demo" Height="500" Width="800">
     <Grid>
         <TabControl>
             <TabItem Header="Relay">

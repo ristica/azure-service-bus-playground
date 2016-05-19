@@ -4,11 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Azure.ServiceBus.Demo.Manager.Views">
-    <Grid VerticalAlignment="Center">
-
-        <Grid Margin="20,10">
+    <Grid Margin="10" VerticalAlignment="Center">
             <Grid.RowDefinitions>
-                <RowDefinition />
+                <RowDefinition Height="60"/>
                 <RowDefinition Height="30"/>
                 <RowDefinition />
                 <RowDefinition />
@@ -18,46 +16,56 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
 
-            <Label Content="Choose an math operation and invoke the service..."
-                   Margin="0,0,0,0"/>
+            <Label Content="Choose an math operation and invoke the service..." FontSize="18"/>
             
             <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center">
-                <RadioButton Name="RbAdd" GroupName="math">add</RadioButton>
-                <RadioButton Name="RbSubtract" GroupName="math" Margin="20,0,0,0">subtract</RadioButton>
+                <RadioButton Name="RbAdd" GroupName="math" FontSize="16">add</RadioButton>
+                <RadioButton Name="RbSubtract"
+                             GroupName="math"
+                             Margin="20,0,0,0"
+                             FontSize="16">subtract</RadioButton>
                 <RadioButton Name="RbDivide" GroupName="math"
-                             Margin="20,0,0,0">divide</RadioButton>
+                             Margin="20,0,0,0"
+                             FontSize="16">divide</RadioButton>
                 <RadioButton Name="RbMultiply" GroupName="math"
-                             Margin="20,0,0,0">multiply</RadioButton>
+                             Margin="20,0,0,0"
+                             FontSize="16">multiply</RadioButton>
             </StackPanel>
             
             <Label Grid.Row="2"
-                   Content="Set the operands:" />
+                   Content="Set the operands:"
+                   FontSize="16" />
             <Grid Grid.Row="3">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
 
-                <TextBox Grid.Column="0"
-                         Name="TxtFirstOperand" />
+                <TextBox Name="TxtFirstOperand"
+                         FontSize="16" 
+                         Height="35" VerticalAlignment="Bottom"/>
                 <TextBox Grid.Column="1"
-                         Name="TxtSecondOperand" />
+                         Name="TxtSecondOperand"
+                         FontSize="16" 
+                         Height="35" VerticalAlignment="Bottom"/>
 
             </Grid>
             <Button Grid.Row="4"
                     Content="Invoke service"
                     Click="BtnInvokeServiceClick"
-                    Margin="0,5,0,0" />
+                    Margin="0,5,0,0"
+                    FontSize="16" 
+                    Height="40"/>
             <Border Grid.Row="5"
                     Height="1"
                     Background="#fff"
-                    Margin="0,5" />
+                    Margin="0,5"/>
             <Label Grid.Row="6"
-                   Content="Return value:" />
+                   Content="Return value:"
+                   FontSize="16" />
             <Label Grid.Row="7"
-                   Name="LblReturnValue" FontSize="14" />
+                   Name="LblReturnValue" FontSize="18" />
 
         </Grid>
 
-    </Grid>
 </UserControl>
