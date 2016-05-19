@@ -149,25 +149,30 @@ namespace Azure.ServiceBus.Demo.Manager.Views
 
         private TokenProvider GetCredentials()
         {
-            return TokenProvider.CreateSharedAccessSignatureTokenProvider(
-                            Common.AccessData.SasTestKeyName,
-                            Common.AccessData.SasTestKeyValue);
+            return TokenProvider
+                .CreateSharedAccessSignatureTokenProvider(
+                    Common.AccessData.SasTestKeyName,
+                    Common.AccessData.SasTestKeyValue);
         }
 
         private NamespaceManager GetNamespaceManager()
         {
-            return new NamespaceManager(ServiceBusEnvironment.CreateServiceUri(
-               "sb", Common.AccessData.ServiceBusNamespace, string.Empty), this.GetCredentials());
+            return new NamespaceManager(
+                ServiceBusEnvironment.CreateServiceUri(
+                    "sb", 
+                    Common.AccessData.ServiceBusNamespace, 
+                    string.Empty), 
+                this.GetCredentials());
         }
 
         private MessagingFactory GetFactory()
         {
             return MessagingFactory.Create(
-                    ServiceBusEnvironment.CreateServiceUri(
-                        "sb", 
-                        Common.AccessData.ServiceBusNamespace, 
-                        string.Empty), 
-                    this.GetCredentials());
+                ServiceBusEnvironment.CreateServiceUri(
+                    "sb", 
+                    Common.AccessData.ServiceBusNamespace, 
+                    string.Empty), 
+                this.GetCredentials());
         }
 
         private void ListenToTheQueue(string queue)

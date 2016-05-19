@@ -4,7 +4,145 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Azure.ServiceBus.Demo.Manager.Views">
-    <Grid>
-            
+    <Grid Margin="20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="30" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Label Grid.ColumnSpan="3"
+               Content="Topic's playground"
+               FontSize="18" />
+
+        <Label Grid.Row="1"
+               Content="Topics:"
+               FontSize="16"
+               Padding="5,5,5,2"
+               VerticalContentAlignment="Bottom" />
+        <Border Grid.Column="1"
+                Grid.Row="1"
+                Grid.RowSpan="3"
+                Width="1"
+                Background="#FF979797"
+                Opacity="0.5" />
+        <Label Grid.Row="1"
+               Grid.Column="2"
+               Content="Create new topic:"
+               FontSize="16"
+               VerticalContentAlignment="Bottom"
+               Padding="5,5,5,2" />
+
+        <ComboBox Grid.Row="2"
+                  Name="CbTopics"
+                  FontSize="16"
+                  Margin="5,0,5,5"
+                  Height="35"
+                  VerticalAlignment="Bottom"
+                  SelectionChanged="CbTopicsSelectionChanged" />
+        <StackPanel Orientation="Horizontal"
+                    Grid.Row="2"
+                    Grid.Column="2"
+                    HorizontalAlignment="Center">
+            <CheckBox Name="CheckLessThen"
+                         Margin="20,0,0,0"
+                         FontSize="16">less then (100)</CheckBox>
+            <CheckBox Name="CheckGreaterThen"
+                         Margin="20,0,0,0"
+                         FontSize="16">greater then (100)</CheckBox>
+        </StackPanel>
+
+        <TextBox Grid.Row="3"
+                 Grid.Column="2"
+                 Name="TxtTopicName"
+                 FontSize="16"
+                 Margin="5,0,5,5"
+                 Height="35"
+                 VerticalAlignment="Bottom" />
+
+        <Button Grid.Row="3"
+                Content="Delete Topic"
+                FontSize="16"
+                Margin="5,0,5,2"
+                Height="40"
+                Click="BtnDeleteTopicClicked" />
+        <Button Grid.Row="4"
+                Content="Show subscribers"
+                FontSize="16"
+                Margin="5,2,5,0"
+                Height="40"
+                Click="BtnShowSubscribersClicked" />
+        <Button Grid.Row="4"
+                Grid.Column="2"
+                Content="Save topic"
+                FontSize="16"
+                Margin="5,0"
+                Height="40"
+                Click="BtnCreateTopicClicked" />
+
+        <Border Grid.Row="5"
+                Grid.ColumnSpan="3"
+                Height="1"
+                Background="#FF979797"
+                Opacity="0.5" />
+
+        <Label Grid.Row="6"
+               Content="Send new message (only integer):"
+               FontSize="16"
+               VerticalContentAlignment="Bottom"
+               Padding="5,5,5,2" />
+        <Border Grid.Row="6"
+                Grid.Column="1"
+                Grid.RowSpan="3"
+                Width="1"
+                Background="#FF979797"
+                Opacity="0.5" />
+        <Label Grid.Row="6"
+               Grid.Column="2"
+               Content="Messages sent:"
+               FontSize="16"
+               Padding="5,5,5,2"
+               VerticalContentAlignment="Bottom" />
+
+        <StackPanel Grid.Row="7">
+            <TextBox Name="TxtMessage"
+                     FontSize="16"
+                     Margin="5,0,5,5"
+                     Height="35"
+                     VerticalAlignment="Bottom" />
+            <Button FontSize="16"
+                    Content="Send message"
+                    Margin="5,0"
+                    Height="40"
+                    Click="BtnSendMessageClicked" />
+        </StackPanel>
+
+        <ListBox Grid.Row="7"
+                 Grid.Column="2"
+                 Grid.RowSpan="2"
+                 Name="LbMessages"
+                 FontSize="16"
+                 Margin="5,0"
+                 BorderThickness="1" />
+
+        <Label Grid.Row="8"
+               Grid.ColumnSpan="3"
+               Name="LblMessage"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               FontSize="20"
+               FontWeight="Bold"
+               Foreground="#3399FF" />
+
     </Grid>
 </UserControl>

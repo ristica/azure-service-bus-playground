@@ -1,0 +1,58 @@
+﻿<Controls:MetroWindow x:Class="Azure.ServiceBus.Demo.Manager.Dialogs.Subscribers"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Azure.ServiceBus.Demo.Manager.Dialogs"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        mc:Ignorable="d"
+        Title="Topic's Subscribers" Height="350" Width="600">
+    <Grid>
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Label Name="LblTopic"
+               Grid.ColumnSpan="3"
+               HorizontalAlignment="Center"
+               FontSize="18" />
+
+        <Label Grid.Row="1" Content="Match All" HorizontalAlignment="Center"
+               FontSize="16" />
+        <Label Grid.Row="1" Grid.Column="1" Content="Greater Then" HorizontalAlignment="Center"
+               FontSize="16" />
+        <Label Grid.Row="1" Grid.Column="2" Content="Less Then" HorizontalAlignment="Center"
+               FontSize="16" />
+
+        <ListBox Grid.Row="2"
+                 Name="LbMatchAll" 
+                 Margin="5"
+                 BorderThickness="1"
+                 FontSize="16"
+                     Padding="5" />
+        <ListBox Grid.Row="2"
+                 Grid.Column="1"
+                 Name="LbGreaterThen"
+                 Margin="5"
+                 BorderThickness="1"
+                 FontSize="16"
+                     Padding="5" />
+        <ListBox Grid.Row="2" 
+                 Grid.Column="2"
+                 Name="LbLessThen"
+                 Margin="5"
+                 BorderThickness="1"
+                 FontSize="16"
+                     Padding="5" />
+
+    </Grid>
+    </Grid>
+</Controls:MetroWindow>
