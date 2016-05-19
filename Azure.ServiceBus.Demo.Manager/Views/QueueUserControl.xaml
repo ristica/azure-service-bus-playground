@@ -123,8 +123,9 @@
                    Name="LblMessage"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
-                   FontSize="18"
-                   Foreground="LightBlue" />
+                   FontSize="20"
+                   FontWeight="Bold"
+                   Foreground="#FFFF00" />
         </Grid>
             
     </Grid>

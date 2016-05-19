@@ -14,10 +14,16 @@ namespace Azure.ServiceBus.Demo.Manager.Views
 {
     public partial class QueueUserControl : UserControl
     {
+        #region Fields
+
         private static ObservableCollection<string> Queues = new ObservableCollection<string>();
         private static ObservableCollection<string> Messages = new ObservableCollection<string>();
         private SynchronizationContext _sync;
         private static QueueClient _client;
+
+        #endregion
+
+        #region C-Tor
 
         public QueueUserControl()
         {
@@ -27,6 +33,10 @@ namespace Azure.ServiceBus.Demo.Manager.Views
             this.Loaded += ViewLoaded;
             this._sync = SynchronizationContext.Current;
         }
+
+        #endregion
+
+        #region Events
 
         private void ViewLoaded(object sender, RoutedEventArgs e)
         {
@@ -133,6 +143,8 @@ namespace Azure.ServiceBus.Demo.Manager.Views
             ListenToTheQueue(selectedQueue);
         }
 
+        #endregion
+
         #region Helpers
 
         private NamespaceManager GetNamespaceManager()
@@ -148,15 +160,17 @@ namespace Azure.ServiceBus.Demo.Manager.Views
                 return;
             }
 
+            var connectionString = CloudConfigurationManager.GetSetting(Common.AccessData.ServiceBusConfigConnectionStringName);
+            _client = QueueClient.CreateFromConnectionString(connectionString, queue);
+            var options = new OnMessageOptions
+            {
+                AutoComplete = false,
+                AutoRenewTimeout = TimeSpan.FromSeconds(10),
+                MaxConcurrentCalls = 1
+            };
+
             Task.Run(() =>
             {
-                var connectionString = CloudConfigurationManager.GetSetting(Common.AccessData.ServiceBusConfigConnectionStringName);
-                _client = QueueClient.CreateFromConnectionString(connectionString, queue);
-                var options = new OnMessageOptions
-                {
-                    AutoComplete = false,
-                    AutoRenewTimeout = TimeSpan.FromMinutes(1)
-                };
                 _client.OnMessage((message) =>
                 {
                     try
@@ -201,6 +215,5 @@ namespace Azure.ServiceBus.Demo.Manager.Views
         }
 
         #endregion
-
     }
 }
