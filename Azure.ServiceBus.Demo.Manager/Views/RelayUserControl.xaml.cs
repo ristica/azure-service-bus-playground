@@ -1,8 +1,6 @@
-﻿using Azure.ServiceBus.Demo.Contracts;
-using Microsoft.ServiceBus;
+﻿using Microsoft.ServiceBus;
 using System;
 using System.Diagnostics;
-using System.Resources;
 using System.ServiceModel;
 using System.Threading;
 using System.Threading.Tasks;
@@ -69,8 +67,8 @@ namespace Azure.ServiceBus.Demo.Manager.Views
 
                 }
 
-                // allways do loong running tasks in "background"
-                // and do not couple ui to the task
+                // allways do long running tasks in "background"
+                // and do not tie ui to the task
                 Task.Run(() =>
                 {
                     var factory = new ChannelFactory<IRelayCalculatorService>(

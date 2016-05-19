@@ -2,7 +2,7 @@
 
 namespace Azure.ServiceBus.Demo.Contracts.Relay
 {
-    [ServiceContract(Name = "IRelayCalculatorService", Namespace = "http://servicebus/demo/relay2")]
+    [ServiceContract(Name = "IRelayCalculatorService", Namespace = "http://servicebus/demo/relay")]
     public interface IRelayCalculatorService
     {
         [OperationContract]

@@ -4,13 +4,13 @@ using Azure.ServiceBus.Demo.Contracts.Relay;
 
 namespace Azure.ServiceBus.Demo.Services.Relay
 {
-    [ServiceBehavior(Name = "RelayCalculatorManager", Namespace = "http://servicebus/demo/relay2")]
+    [ServiceBehavior(Name = "RelayCalculatorManager", Namespace = "http://servicebus/demo/relay")]
     public class RelayCalculatorManager : IRelayCalculatorService
     {
         public double Add(double a, double b)
         {
             Console.WriteLine();
-            Console.WriteLine("\tRelayCalculatorManager.Add() invoked with parameter: " + a + " and " + b);
+            Console.WriteLine(string.Format("\tRelayCalculatorManager.Add() invoked with parameter: {0} and {1}", a, b));
             Console.WriteLine();
             return a + b;
         }
@@ -18,7 +18,7 @@ namespace Azure.ServiceBus.Demo.Services.Relay
         public double Subtract(double a, double b)
         {
             Console.WriteLine();
-            Console.WriteLine("\tRelayCalculatorManager.Subtract() invoked with parameter: " + a + " and " + b);
+            Console.WriteLine(string.Format("\tRelayCalculatorManager.Subtract() invoked with parameter: {0} and {1}", a, b));
             Console.WriteLine();
             return a - b;
         }
@@ -26,7 +26,7 @@ namespace Azure.ServiceBus.Demo.Services.Relay
         public double Multiply(double a, double b)
         {
             Console.WriteLine();
-            Console.WriteLine("\tRelayCalculatorManager.Multiply() invoked with parameter: " + a + " and " + b);
+            Console.WriteLine(string.Format("\tRelayCalculatorManager.Multiply() invoked with parameter: {0} and {1}", a, b));
             Console.WriteLine();
             return a*b;
         }
@@ -34,7 +34,7 @@ namespace Azure.ServiceBus.Demo.Services.Relay
         public double Divide(double a, double b)
         {
             Console.WriteLine();
-            Console.WriteLine("\tRelayCalculatorManager.Divide() invoked with parameter: " + a + " and " + b);
+            Console.WriteLine(string.Format("\tRelayCalculatorManager.Divide() invoked with parameter: {0} and {1}", a, b));
             Console.WriteLine();
             return a/b;
         }
