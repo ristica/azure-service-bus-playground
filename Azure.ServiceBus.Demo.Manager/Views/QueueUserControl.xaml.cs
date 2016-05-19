@@ -30,29 +30,14 @@ namespace Azure.ServiceBus.Demo.Manager.Views
             InitializeComponent();
             this.CbQueues.ItemsSource = Queues;
             this.LbMessages.ItemsSource = Messages;
-            this.Loaded += ViewLoaded;
             this._sync = SynchronizationContext.Current;
+
+            this.LoadQueues();
         }
 
         #endregion
 
         #region Events
-
-        private void ViewLoaded(object sender, RoutedEventArgs e)
-        {
-            if (Queues.Any())
-            {
-                return;
-            }
-
-            var manager = this.GetNamespaceManager();
-            var queues = manager.GetQueues();
-
-            foreach ( var q in queues)
-            {
-                Queues.Add(q.Path);
-            }
-        }
 
         private void BtnDeleteQueueClicked(object sender, RoutedEventArgs e)
         {
@@ -129,8 +114,7 @@ namespace Azure.ServiceBus.Demo.Manager.Views
                 return;
             }
 
-            var connectionString = CloudConfigurationManager.GetSetting(Common.AccessData.ServiceBusConfigConnectionStringName);
-            var client = QueueClient.CreateFromConnectionString(connectionString, selectedQueue);
+            var client = this.GetFactory().CreateQueueClient(selectedQueue);
 
             var m = new BrokeredMessage(message);
             client.Send(m);
@@ -147,10 +131,43 @@ namespace Azure.ServiceBus.Demo.Manager.Views
 
         #region Helpers
 
+        private void LoadQueues()
+        {
+            if (Queues.Any())
+            {
+                return;
+            }
+
+            var manager = this.GetNamespaceManager();
+            var queues = manager.GetQueues();
+
+            foreach (var q in queues)
+            {
+                Queues.Add(q.Path);
+            }
+        }
+
+        private TokenProvider GetCredentials()
+        {
+            return TokenProvider.CreateSharedAccessSignatureTokenProvider(
+                            Common.AccessData.SasTestKeyName,
+                            Common.AccessData.SasTestKeyValue);
+        }
+
         private NamespaceManager GetNamespaceManager()
         {
-            var connectionString = CloudConfigurationManager.GetSetting(Common.AccessData.ServiceBusConfigConnectionStringName);
-            return NamespaceManager.CreateFromConnectionString(connectionString);
+            return new NamespaceManager(ServiceBusEnvironment.CreateServiceUri(
+               "sb", Common.AccessData.ServiceBusNamespace, string.Empty), this.GetCredentials());
+        }
+
+        private MessagingFactory GetFactory()
+        {
+            return MessagingFactory.Create(
+                    ServiceBusEnvironment.CreateServiceUri(
+                        "sb", 
+                        Common.AccessData.ServiceBusNamespace, 
+                        string.Empty), 
+                    this.GetCredentials());
         }
 
         private void ListenToTheQueue(string queue)
@@ -160,8 +177,8 @@ namespace Azure.ServiceBus.Demo.Manager.Views
                 return;
             }
 
-            var connectionString = CloudConfigurationManager.GetSetting(Common.AccessData.ServiceBusConfigConnectionStringName);
-            _client = QueueClient.CreateFromConnectionString(connectionString, queue);
+            _client = this.GetFactory().CreateQueueClient(queue);
+
             var options = new OnMessageOptions
             {
                 AutoComplete = false,

@@ -4,129 +4,126 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Azure.ServiceBus.Demo.Manager.Views">
-    <Grid>
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="30" />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
 
-        <Grid Margin="10">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition Width="10"/>
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="10"/>
-                <RowDefinition Height="30"/>
-                <RowDefinition />
-                <RowDefinition />
-            </Grid.RowDefinitions>
+        <Label Grid.ColumnSpan="3"
+               Content="Queue's playground"
+               FontSize="18" />
 
-            <Label Grid.ColumnSpan="3"
-                   Content="Queue's playground" FontSize="18"/>
+        <Label Grid.Row="1"
+               Content="Queues:"
+               FontSize="16"
+               Padding="5,5,5,2"
+               VerticalContentAlignment="Bottom" />
+        <Border Grid.Column="1"
+                Grid.Row="1"
+                Grid.RowSpan="3"
+                Width="1"
+                Background="#FF979797"
+                Opacity="0.5" />
+        <Label Grid.Row="1"
+               Grid.Column="2"
+               Content="Create new queue:"
+               FontSize="16"
+               VerticalContentAlignment="Bottom"
+               Padding="5,5,5,2" />
 
-            <Label Grid.Row="1"
-                   Content="Queues:"
-                   FontSize="16"
-                   Padding="5,5,5,2"
-                   VerticalContentAlignment="Bottom" />
-            <Border Grid.Column="1"
-                    Grid.Row="1"
-                    Grid.RowSpan="3"
-                    Width="1"
-                    Background="#FF979797"
-                    Opacity="0.5" />
-            <Label Grid.Row="1"
-                   Grid.Column="2"
-                   Content="Create new queue:"
-                   FontSize="16"
-                   VerticalContentAlignment="Bottom"
-                   Padding="5,5,5,2" />
+        <ComboBox Grid.Row="2"
+                  Name="CbQueues"
+                  FontSize="16"
+                  Margin="5,0,5,5"
+                  Height="35"
+                  VerticalAlignment="Bottom"
+                  SelectionChanged="CbQueuesSelectionChanged" />
+        <TextBox Grid.Row="2"
+                 Grid.Column="2"
+                 Name="TxtQueueName"
+                 FontSize="16"
+                 Margin="5,0,5,5"
+                 Height="35"
+                 VerticalAlignment="Bottom" />
 
-            <ComboBox Grid.Row="2"
-                      Name="CbQueues" 
-                      FontSize="16"
-                      Margin="5,0,5,5"
-                      Height="35"
-                      VerticalAlignment="Bottom"
-                      SelectionChanged="CbQueuesSelectionChanged" />
-            <TextBox Grid.Row="2"
-                     Grid.Column="2"
-                     Name="TxtQueueName"
+        <Button Grid.Row="3"
+                Content="Delete queue"
+                FontSize="16"
+                Margin="5,0"
+                Height="40"
+                Click="BtnDeleteQueueClicked" />
+        <Button Grid.Row="3"
+                Grid.Column="2"
+                Content="Save"
+                FontSize="16"
+                Margin="5,0"
+                Height="40"
+                Click="BtnCreateQueueClicked" />
+
+        <Border Grid.Row="4"
+                Grid.ColumnSpan="3"
+                Height="1"
+                Background="#FF979797"
+                Opacity="0.5" />
+
+        <Label Grid.Row="5"
+               Content="Send new message to the queue:"
+               FontSize="16"
+               VerticalContentAlignment="Bottom"
+               Padding="5,5,5,2" />
+        <Border Grid.Row="5"
+                Grid.Column="1"
+                Grid.RowSpan="3"
+                Width="1"
+                Background="#FF979797"
+                Opacity="0.5" />
+        <Label Grid.Row="5"
+               Grid.Column="2"
+               Content="Messages in the queue:"
+               FontSize="16"
+               Padding="5,5,5,2"
+               VerticalContentAlignment="Bottom" />
+
+        <StackPanel Grid.Row="6">
+            <TextBox Name="TxtMessage"
                      FontSize="16"
                      Margin="5,0,5,5"
                      Height="35"
                      VerticalAlignment="Bottom" />
-
-            <Button Grid.Row="3"
-                    Content="Delete queue"
-                    FontSize="16"
+            <Button FontSize="16"
+                    Content="Send message"
                     Margin="5,0"
                     Height="40"
-                    Click="BtnDeleteQueueClicked" />
-            <Button Grid.Row="3"
-                    Grid.Column="2"
-                    Content="Save"
-                    FontSize="16"
-                    Margin="5,0"
-                    Height="40"
-                    Click="BtnCreateQueueClicked" />
+                    Click="BtnSendMessageClicked" />
+        </StackPanel>
 
-            <Border Grid.Row="4"
-                    Grid.ColumnSpan="3"
-                    Height="1"
-                    Background="#FF979797"
-                    Opacity="0.5" />
+        <ListBox Grid.Row="6"
+                 Grid.Column="2"
+                 Grid.RowSpan="2"
+                 Name="LbMessages"
+                 FontSize="16"
+                 Margin="5,0"
+                 BorderThickness="1" />
 
-            <Label Grid.Row="5"
-                   Content="Send new message to the queue:"
-                   FontSize="16"
-                   VerticalContentAlignment="Bottom"
-                   Padding="5,5,5,2" />
-            <Border Grid.Row="5"
-                    Grid.Column="1"
-                    Grid.RowSpan="3"
-                    Width="1"
-                    Background="#FF979797"
-                    Opacity="0.5" />
-            <Label Grid.Row="5"
-                   Grid.Column="2"
-                   Content="Messages in the queue:"
-                   FontSize="16"
-                   Padding="5,5,5,2"
-                   VerticalContentAlignment="Bottom" />
-
-            <StackPanel Grid.Row="6" >
-                <TextBox Name="TxtMessage"
-                         FontSize="16"
-                         Margin="5,0,5,5"
-                         Height="35"
-                         VerticalAlignment="Bottom" />
-                <Button FontSize="16"
-                        Content="Send message"
-                        Margin="5,0"
-                        Height="40"
-                        Click="BtnSendMessageClicked" />
-            </StackPanel>
-            
-            <ListBox Grid.Row="6"
-                     Grid.Column="2"
-                     Grid.RowSpan="2"
-                     Name="LbMessages"
-                     FontSize="16"
-                     Margin="5,0"
-                     BorderThickness="1" />
-
-            <Label Grid.Row="7"
-                   Grid.ColumnSpan="3"
-                   Name="LblMessage"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   FontSize="20"
-                   FontWeight="Bold"
-                   Foreground="#FFFF00" />
-        </Grid>
-            
+        <Label Grid.Row="7"
+               Grid.ColumnSpan="3"
+               Name="LblMessage"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               FontSize="20"
+               FontWeight="Bold"
+               Foreground="#FFFF00" />
     </Grid>
 </UserControl>
