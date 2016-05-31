@@ -86,7 +86,7 @@ namespace Azure.ServiceBus.Demo.Manager.Views
                 MessageBox.Show(string.Format("Queue '{0}' exists allready.", queue));
                 return;
             }
-            namespaceManager.CreateQueue(queue);
+            namespaceManager.CreateQueue(qd);
 
             if (!Queues.Contains(queue))
             {
